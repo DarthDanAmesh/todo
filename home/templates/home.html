@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tasks-Do</title>
+        {%load static%}
+        <link rel="stylesheet" href="{% static 'home/index.css' %}" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 class="row"> TO-DO APP </h1>
+            <br/>
+
+            <div class="row">
+                <form class="form-inline col-sm-offset-3">
+                    <div class="input-group"> 
+                    <span class="input-group-addon"> 
+                      <i class="glyphicon glyphicon-pencil"></i> 
+                    </span> 
+                    <input type="text" class="form-control"
+                           placeholder="task-item" 
+                           id="box" style="width: 30vw" /> 
+                    </div> 
+            <div class="form-group"> 
+                    <input type="button"
+                           class="btn btn-primary form-control" 
+                           value="add" style="width: 10vw"
+                           onclick="add_item()"/> 
+                </div> 
+            </form>
+            </div>
+            <div class="row">
+                <ul id="list-item">
+
+                </ul>
+            </div>
+        </div>
+        {%load static%}
+        <script type="text/javascript" src="{% static 'home/script.js'%}"></script>
+    </body>
+</html>
