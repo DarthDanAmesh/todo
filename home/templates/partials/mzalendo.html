@@ -1,0 +1,19 @@
+{% load humanize %}
+{% load hitcount_tags %}
+
+<div class="post-list">
+    <div class="card">
+      <div class="box">
+        <img src="{{ mzalendo.cover.url }}" alt="Cover Image" style="width: 100px; height: auto;">
+
+        <div class="card-content">  
+            <span class="card-title"> SHUJAA </b></span>
+            <span class="card-title"><b>Name : {{ mzalendo.name }}</b></span>
+          <span class="card-title"><b>Age : {{ mzalendo.age }}</b></span>
+          <span class="card-title"><b>Gender : {{ mzalendo.gender }}</b></span>
+          <span class="card-title"><b>County : {{ mzalendo.county }}</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,23 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    Mzalendo List
+{% endblock %}
+
+{% block content %}
+    {% include "../navbar.html" %}
+    <h3 style="text-align: center;">Our National Heroes!!</h3>
+    <hr style="width: 50%; margin: 0 auto;">
+    <section id="book-list">  
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 0 auto; max-width: 1000px;">
+        {% for mzalendo in mzalendo %}
+            {% include "partials/mzalendo.html" %}
+        {% empty %}
+            <p style="text-align: center;">No mzalendo posted yet 🙈</p>
+        {% endfor %}
+    </div>
+    </section>
+{% endblock %}
+

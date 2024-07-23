@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %} Mzalendo Detail {% endblock %}
+
+{% block content %}
+    {% include "../navbar.html" %}
+    <div class="container">
+        <h1>{{ mzalendo.first_name }} {{ mzalendo.last_name }}</h1>
+        <p><strong>Gender:</strong> {{ mzalendo.gender }}</p>
+        <p><strong>County:</strong> {{ mzalendo.county }}</p>
+        <p><strong>Age:</strong> {{ mzalendo.age }}</p>
+        <p><strong>Life:</strong> {{ mzalendo.life }}</p>
+        <p><strong>Date Deceased:</strong> {{ mzalendo.dod }}</p>
+        <p><strong>Author:</strong> {{ mzalendo.author }}</p>
+        <p><strong>Date Created:</strong> {{ mzalendo.date_created }}</p>
+        <p><strong>Updated By:</strong> {{ mzalendo.updated_by }}</p>
+        <p><strong>Approved:</strong> {{ mzalendo.approved }}</p>
+        <img src="{{ mzalendo.cover.url }}" alt="Cover Image" class="img-fluid">
+    </div>
+{% endblock %}

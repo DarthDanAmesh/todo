@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+{% block title %} The Mzalendo Site {% endblock %}
+
+{% block content %}
+    {% include "navbar.html" %}
+    <div class="container">
+        <div class="post-list">
+            <div class="card">
+              <div class="box">
+                <img src="{% static 'keprint.png' %}" alt="keprint">
+        
+                <div class="card-content">  
+                    <span class="card-title"> SHUJAA </b></span>
+                    <span class="card-title"><b>Name : {{ mzalendo.name }}</b></span>
+                  <span class="card-title"><b>Age : {{ mzalendo.age }}</b></span>
+                  <span class="card-title"><b>Gender : {{ mzalendo.gender }}</b></span>
+                  <span class="card-title"><b>County : {{ mzalendo.county }}</b></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- End of the post list 
+        
+        <div class="col s12 m6">
+            <div class="card medium hoverable">
+                <div class="card-image">
+                    <img src="{% static 'keprint.png' %}" alt="keprint">
+                    <span class="card-title">Mzalendo Placement for title of mzalendo</span>
+                </div>
+                <div class="card-content">
+                    <p>Fallen Mzalendo is a site to track fallen heroes and their cases (if any).</p>
+                </div>
+                <div class="card-action">
+                    <a href="{{ mzalendo.get_absolute_url }}">Find Out</a>
+                    <span class="grey-text vertical-align right">
+                        <i class="far fa-eye"></i>&nbsp;&nbsp; 129 &nbsp;&#8226;
+                        &nbsp;<i class="far fa-comment"></i>&nbsp;&nbsp;{{ mzalendo.comment_count }}
+                  </span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+        -->
+{% endblock %}
