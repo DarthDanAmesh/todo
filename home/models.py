@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from autoslug import AutoSlugField
@@ -7,6 +8,8 @@ from imagekit.processors import ResizeToFill
 from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator
+
 # Create your models here.
 STATUS = ((0,'Active'),(1,'Completed'),(2,'Due Date Passed'))
 COUNTIES = (
@@ -34,10 +37,15 @@ class ToDo(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     date_assigned = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField()
-    status = models.IntegerField(STATUS, default=0)
+    status = models.IntegerField(STATUS, default=0, validators=[MaxValueValidator(120)])
 
     class Meta:
         ordering = ['-date_assigned']
+
+    def clean(self):
+        if self.age < 0:
+            raise ValidationError('Age cannot be negative')
+        super().clean()
 
     def __str__(self):
         return self.item

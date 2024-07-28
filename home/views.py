@@ -10,6 +10,14 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DeleteView
 from django.contrib import messages
 from .forms import MzalendoForm
+from django.core.paginator import Paginator
+
+# in future add required mixin for logins to access the details materials
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.forms.models import modelform_factory
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -33,7 +41,7 @@ def register(request):
     )
 
 # fix the index.html to be a list view
-from django.core.paginator import Paginator
+
 
 def mzalendo_list_view(request):
     mzalendo_list = Mzalendo.objects.all()
@@ -42,11 +50,6 @@ def mzalendo_list_view(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'mzalendo/mzalendo_list.html', {'page_obj': page_obj, 'mzalendo': mzalendo_list})
 
-# in future add required mixin for logins to access the details materials
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.forms.models import modelform_factory
 
 
 def mzalendo_create_view(request):

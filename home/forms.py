@@ -13,15 +13,14 @@ class CustomUserCreationForm(UserCreationForm):
         )
         widgets = {
             'username': forms.TextInput(attrs={
-                'class': 'form-control',
+                
                 'placeholder': 'Username'
             }),
             'password1': forms.PasswordInput(attrs={
-                'class': 'form-control',
+                
                 'placeholder': 'Password'
             }),
             'password2': forms.PasswordInput(attrs={
-                'class': 'form-control',
                 'placeholder': 'Confirm Password'
             }),
         }
