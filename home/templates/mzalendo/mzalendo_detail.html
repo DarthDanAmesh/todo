@@ -6,17 +6,19 @@
 {% block content %}
     {% include "../navbar.html" %}
     <div class="container">
-        <img src="{{ mzalendo_post.cover.url }}" alt="Cover Image" class="img-fluid">
-        <h3>{{ mzalendo_post.first_name }} {{ mzalendo_post.last_name }}</h3>
-        <p><strong>Gender:</strong> {{ mzalendo_post.gender }}</p>
-        <p><strong>County:</strong> {{ mzalendo_post.county }}</p>
-        <p><strong>Age:</strong> {{ mzalendo_post.age }}</p>
-        <p><strong>Life:</strong> {{ mzalendo_post.life }}</p>
-        <p><strong>Date Deceased:</strong> {{ mzalendo_post.dod }}</p>
-        <p><strong>Author:</strong> {{ mzalendo_post.author }}</p>
-        <p><strong>Date Created:</strong> {{ mzalendo_post.date_created }}</p>
-        <p><strong>Updated By:</strong> {{ mzalendo_post.updated_by }}</p>
-        <p><strong>Approved:</strong> {{ mzalendo_post.approved }}</p>
+        {%if mzalendo.cover%}
+        <img src="{{ mzalendo.cover.url }}" alt="Cover Image" class="img-fluid">
+        {%endif%}
+        <h3>{{ mzalendo.first_name }} {{ mzalendo.last_name }}</h3>
+        <p><strong>Gender:</strong> {{ mzalendo.gender }}</p>
+        <p><strong>County:</strong> {{ mzalendo.county }}</p>
+        <p><strong>Age:</strong> {{ mzalendo.age }}</p>
+        <p><strong>Life:</strong> {{ mzalendo.life }}</p>
+        <p><strong>Date Deceased:</strong> {{ mzalendo.dod }}</p>
+        <p><strong>Author:</strong> {{ mzalendo.author }}</p>
+        <p><strong>Date Created:</strong> {{ mzalendo.date_created }}</p>
+        <p><strong>Updated By:</strong> {{ mzalendo.updated_by }}</p>
+        <p><strong>Approved:</strong> {{ mzalendo.approved }}</p>
         <a href="{% url 'mzalendo:mzalendo_edit' mzalendo.pk %}"><b> Edit </b></a>
         <button>{% if id %} Edit {% else %} New {% endif %}</button>
     </div>
