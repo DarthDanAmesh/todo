@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import IndexView, register, mzalendo_list_view, mzalendo_create_view, mzalendo_detail_cpy,MzalendoDetail, quick_edit
+from .views import IndexView, register, mzalendo_list_view, MzalendoEdit, mzalendo_create_view, mzalendo_detail_cpy,MzalendoDetail, quick_edit
 from . import views
 # this is a namespace which allows mzalendo:login and equivalent to {% url 'mzalendo:login' %} to work
 app_name = 'mzalendo'
@@ -20,6 +20,11 @@ urlpatterns = [
         "mzalendo/<int:pk>/quickedit",
         views.quick_edit,
         name="quick-edit",
+    ),
+    path(
+        "mzalendo/<int:pk>/edit",
+        MzalendoEdit.as_view(),
+        name="mzalendo_edit",
     ),
     path(
         "mzalendo/<int:pk>/",

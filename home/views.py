@@ -3,7 +3,7 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import Mzalendo
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 from .forms import CustomUserCreationForm
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
@@ -75,11 +75,16 @@ class MzalendoDetail(DetailView):
     model = Mzalendo
     template_name = 'mzalendo/mzalendo_detail.html'
 
-
+# maybe not necessary because of the above DetailView
 def mzalendo_detail_cpy(request, pk):
     mzalendo = get_object_or_404(Mzalendo, pk=pk)
     render(request, 'mzalendo/mzalendo_detail.html', {'mzalendo': mzalendo})
 
+
+class MzalendoEdit(UpdateView):
+    model = Mzalendo
+    fields = ['life','cover','county','age']
+    template_name = 'partials/edit.html'
 
 def edit_post(request, id):
         mzalendo_post = get_object_or_404(Mzalendo, id=id)

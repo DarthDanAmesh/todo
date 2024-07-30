@@ -17,7 +17,7 @@
         <p><strong>Date Created:</strong> {{ mzalendo_post.date_created }}</p>
         <p><strong>Updated By:</strong> {{ mzalendo_post.updated_by }}</p>
         <p><strong>Approved:</strong> {{ mzalendo_post.approved }}</p>
-        
+        <a href="{% url 'mzalendo:mzalendo_edit' mzalendo.pk %}"><b> Edit </b></a>
         <button>{% if id %} Edit {% else %} New {% endif %}</button>
     </div>
 {% endblock %}
