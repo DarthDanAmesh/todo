@@ -9,6 +9,7 @@ from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 STATUS = ((0,'Active'),(1,'Completed'),(2,'Due Date Passed'))
@@ -42,11 +43,6 @@ class ToDo(models.Model):
     class Meta:
         ordering = ['-date_assigned']
 
-    def clean(self):
-        if self.age < 0:
-            raise ValidationError('Age cannot be negative')
-        super().clean()
-
     def __str__(self):
         return self.item
         
@@ -54,6 +50,8 @@ class CustomMzalendoManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().order_by('-date_created')
 
+
+#fix the image issue for new additions.
 class Mzalendo(models.Model):
     name = models.CharField(max_length=200)
     gender = models.CharField(max_length=50, choices=SEX, blank=True, null=True)
@@ -88,12 +86,21 @@ class Mzalendo(models.Model):
     class Meta:
         ordering = ['-date_created']
 
-    def __str__(self):
-        return self.name
-
+    def clean(self):
+        if self.age < 0:
+            raise ValidationError('Age cannot be negative')
+        super().clean()
+    
     def get_absolute_url(self):
         return reverse("mzalendo_detail", kwargs={"slug": self.slug})
 
+    @property
+    def cover_url(self):
+        if self.cover:
+            return getattr(self.cover, 'url', None)
+            
+    def __str__(self):
+        return self.name        
 
 class CustomCommentManger(models.Manager):
     def get_queryset(self):

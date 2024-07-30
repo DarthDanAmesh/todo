@@ -70,12 +70,30 @@ def mzalendo_create_view(request):
     context = {'form': form}
     return render(request, 'mzalendo/create_mzalendo.html', context)
 
-class MzalendoDetailView(DetailView):
+
+class MzalendoDetail(DetailView):
     model = Mzalendo
     template_name = 'mzalendo/mzalendo_detail.html'
-    context_object_name = 'mzalendo'
 
 
+def mzalendo_detail_cpy(request, pk):
+    mzalendo = get_object_or_404(Mzalendo, pk=pk)
+    render(request, 'mzalendo/mzalendo_detail.html', {'mzalendo': mzalendo})
+
+
+def edit_post(request, id):
+        mzalendo_post = get_object_or_404(Mzalendo, id=id)
+        if request.method == 'GET':
+            context = {'form': MzalendoForm(instance=mzalendo_post), 'id': id}
+            return render(render, 'mzalendo/mzalendo_detail.html',context)
+        elif request.method == 'POST':
+            form = MzalendoForm(request.POST, instance=mzalendo_post)
+            if form.is_valid():
+                form.save()
+                message.success(request, 'The post is updated!')
+            else:
+                message.error(request,'Correct errors found in the form!')
+                return render(request, 'mzalendo/mzalendo_list.html',{'form':form})
 
 @require_http_methods(["GET", "POST"])
 def quick_edit(request, pk):

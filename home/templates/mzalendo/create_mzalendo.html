@@ -13,7 +13,7 @@
         <div class="row align-items-start">
             <div class="row">
                 <div class="create-form">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     <table>
                         {{ form.as_table }}
