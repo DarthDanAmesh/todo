@@ -51,7 +51,7 @@ def mzalendo_list_view(request):
     return render(request, 'mzalendo/mzalendo_list.html', {'page_obj': page_obj, 'mzalendo': mzalendo_list})
 
 
-
+@login_required
 def mzalendo_create_view(request):
     form = MzalendoForm()
     if request.method == "POST":
@@ -81,11 +81,14 @@ def mzalendo_detail_cpy(request, pk):
     render(request, 'mzalendo/mzalendo_detail.html', {'mzalendo': mzalendo})
 
 
+@method_decorator([login_required], name='dispatch')
 class MzalendoEdit(UpdateView):
     model = Mzalendo
-    fields = ['life','cover','county','age']
+    fields = '__all__'
     template_name = 'partials/edit.html'
+    success_url = reverse_lazy("mzalendo:mzalendo_list")
 
+# i don't need this probably
 def edit_post(request, id):
         mzalendo_post = get_object_or_404(Mzalendo, id=id)
         if request.method == 'GET':
@@ -99,6 +102,8 @@ def edit_post(request, id):
             else:
                 message.error(request,'Correct errors found in the form!')
                 return render(request, 'mzalendo/mzalendo_list.html',{'form':form})
+
+# also I don't need this
 
 @require_http_methods(["GET", "POST"])
 def quick_edit(request, pk):
@@ -115,7 +120,7 @@ def quick_edit(request, pk):
         return render(request, "partials/mzalendo.html", {"mzalendo": mzalendo})
     return render(request, "partials/edit.html", {"mzalendo": mzalendo})
 
-
+@method_decorator([login_required], name='dispatch')
 class PostDelete(DeleteView):
     model = Mzalendo
     template_name = 'mzalendo/delete_mzalendo.html'

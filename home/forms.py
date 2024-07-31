@@ -37,6 +37,14 @@ class MzalendoForm(forms.ModelForm):
                 }),
         }
 
+
+class EditMzalendoForm(forms.ModelForm):
+    class Meta:
+        model = Mzalendo
+        fields = ['name', 'gender', 'age', 'cover', 'county', 'life']
+        
+        # add widgets if necessary
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
