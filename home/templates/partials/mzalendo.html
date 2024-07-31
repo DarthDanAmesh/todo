@@ -8,10 +8,8 @@
         <img src="{{ mzalendo.cover.url }}" alt="Cover Image" style="width: 100px; height: auto;">
         {% endif %}
         <div class="card-content">  
-            <span class="card-title"> SHUJAA </b></span>
-
-            <a href="{% url 'mzalendo:mzalendo_detail' mzalendo.pk %}"><b>Details : {{ mzalendo.name }}</b></a>
-            <span class="card-title"><b>Name : {{ mzalendo.name }}</b></span>
+          <span class="card-title"> SHUJAA </b></span>
+          <span class="card-title"><a class="page-link" href="{% url 'mzalendo:mzalendo_detail' mzalendo.pk %}"><b>Name : {{ mzalendo.name }}</b></a></span>
           <span class="card-title"><b>Age : {{ mzalendo.age }}</b></span>
           <span class="card-title"><b>Gender : {{ mzalendo.gender }}</b></span>
           <span class="card-title"><b>County : {{ mzalendo.county }}</b></span>

@@ -76,6 +76,15 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
+
+  .nav-pagination { /* Center the container */
+    max-width: 600px;
+    margin: 5px auto;
+    padding: 20px;
+    background-color: #f0aba6;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
   
   .login-form {
     background: linear-gradient(90deg, #e68c8c, #bfdfd0);
@@ -191,4 +200,3 @@
 .login-form button:hover, .create-form button:hover {
     background-color: #2789da;
 }
-  

@@ -45,7 +45,7 @@ def register(request):
 
 def mzalendo_list_view(request):
     mzalendo_list = Mzalendo.objects.all()
-    paginator = Paginator(mzalendo_list, 10)  # Show 10 mzalendos per page
+    paginator = Paginator(mzalendo_list, 6)  # Show 10 mzalendos per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'mzalendo/mzalendo_list.html', {'page_obj': page_obj, 'mzalendo': mzalendo_list})

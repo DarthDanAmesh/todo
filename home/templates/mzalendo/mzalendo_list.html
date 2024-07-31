@@ -12,12 +12,42 @@
     <hr style="width: 50%; margin: 0 auto;">
     <section id="book-list">  
     <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 0 auto; max-width: 1000px;">
-        {% for mzalendo in mzalendo %}
+        {% for mzalendo in page_obj %}
             {% include "partials/mzalendo.html" %}
         {% empty %}
             <p style="text-align: center;">No mzalendo posted yet 🙈</p>
         {% endfor %}
+
     </div>
+
+    <div class="nav-pagination">
+        <ul class="pagination pagination-sm justify-content-center">
+        
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+            {% endif %}
+    
+            <li class="page-item active">
+                <span class="sr-only">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+            </li>
+    
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                </li>
+            {% endif %}
+        
+        </ul>
+    </div>
+   
+    
     </section>
+    
 {% endblock %}
 
