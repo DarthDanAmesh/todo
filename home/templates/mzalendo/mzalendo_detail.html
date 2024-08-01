@@ -19,7 +19,7 @@
         <p><strong>Date Created:</strong> {{ mzalendo.date_created }}</p>
         <p><strong>Updated By:</strong> {{ mzalendo.updated_by }}</p>
         <p><strong>Approved:</strong> {{ mzalendo.approved }}</p>
-        <a href="{% url 'mzalendo:mzalendo_edit' mzalendo.pk %}"><b> Edit </b></a>
-        <button>{% if id %} Edit {% else %} New {% endif %}</button>
+        <a class="btn btn-primary" href="{% url 'mzalendo:mzalendo_edit' mzalendo.pk %}"> Edit </a>
+        <a class="btn btn-secondary" href="{% url 'mzalendo:mzalendo_create' %}">{% if id %} Edit {% else %} New {% endif %}</a>
     </div>
 {% endblock %}

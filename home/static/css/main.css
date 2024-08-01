@@ -48,6 +48,11 @@
     font-weight: bold;
     color: #a50a0a;
   }
+
+  .img-fluid{
+    max-width: 70%;
+    height: 100%;
+  }
   
   .card .box {
     position: relative;
