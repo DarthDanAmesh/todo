@@ -10,7 +10,7 @@ urlpatterns = [
     #path('', IndexView.as_view(template_name='mzalendo/mzalendo_list.html'), name='index'),
     path('', views.mzalendo_list_view, name='index'),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_user, name='logout_user'),
     path('register/', views.register, name='register'),
     #name corresponds to the url in the template tag
     path('mzalendo/', views.mzalendo_list_view, name='mzalendo_list'),

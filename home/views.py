@@ -17,7 +17,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.forms.models import modelform_factory
-
+from django.contrib.auth import logout
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -141,3 +141,9 @@ def delete_comment(request, pk):
         return HttpResponseForbidden('Not Allowed')
 
     return HttpResponseNotAllowed( ['POST'], 'Not Allowed')
+
+# to prevent the recursive limit error, don't use def logout(request) because it calls the logout from auth 
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect("/")

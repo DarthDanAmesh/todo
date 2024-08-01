@@ -4,8 +4,10 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
+          
         {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'mzalendo:mzalendo_list' %}">Home</a>
@@ -14,7 +16,7 @@
                 <a class="nav-link" href="{% url 'mzalendo:mzalendo_create' %}">Add a Mzalendo</a>
             </li>
             <li class="nav-item">
-                <a class="btn button-primary" href="{% url 'mzalendo:logout' %}">Sign Out</a>
+                <a class="btn button-primary" href="/logout">  Sign Out </a>
             </li>
             <li class="nav-item ml-auto">
                 <a class="nav-link">Welcome {{ request.user }} !</a>

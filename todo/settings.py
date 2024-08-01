@@ -48,7 +48,12 @@ INSTALLED_APPS = [
     'home',
     'imagekit',
     'hitcount',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,4 +146,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 LOGIN_REDIRECT_URL = reverse_lazy("mzalendo:mzalendo_list")
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/login"
-LOGOUT_URL = "/logout"
+LOGOUT_URL = "/mzalendo"

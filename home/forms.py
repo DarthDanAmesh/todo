@@ -42,7 +42,10 @@ class EditMzalendoForm(forms.ModelForm):
     class Meta:
         model = Mzalendo
         fields = ['name', 'gender', 'age', 'cover', 'county', 'life']
-        
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['life'].widget.attrs.update({'style': 'width: 250px;','background':'red;'})
         # add widgets if necessary
 
 class CommentForm(forms.ModelForm):

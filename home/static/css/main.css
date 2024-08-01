@@ -167,7 +167,7 @@
     }
 }
 
-.login-form input{
+.login-form2 input{
     border: none;
 	border-bottom: 2px solid #D1D1D4;
     color: #610303;
@@ -185,7 +185,7 @@
 	border-bottom-color: #516b5f;
 }
 
-.login-form button, .create-form button{
+.login-form2 button, .create-form button{
     background-color: #5a8b74;
     color: white;
     border: none;
@@ -197,6 +197,6 @@
     transition: background-color 0.3s ease;
 }
 
-.login-form button:hover, .create-form button:hover {
+.login-form2 button:hover, .create-form button:hover {
     background-color: #2789da;
 }
