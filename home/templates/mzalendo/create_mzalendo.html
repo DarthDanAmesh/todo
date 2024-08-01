@@ -1,30 +1,20 @@
 {% extends "../base.html" %}
+
+{% load crispy_forms_tags %}
+
 {% block title %} Create Mzalendo {% endblock %}
 {% block content %}
     {% include "../navbar.html" %}
-
-    {% if form.errors %}
-        <p>Your username and password does not match 🤨</p>
-    {% else %}
-        <h3 style="text-align: center;color: #000000; padding-top: 10px;">Add a Patriot</h3>
-    {% endif %}
     
-    <div class="container text-center">
-        <div class="row align-items-start">
-            <div class="row">
-                <div class="create-form">
-                <form method="post" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-                    <table>
-                        {{ form.as_table }}
-                    <tr>
-                        <td></td>
-                        <td><button class="btn button-primary" type="submit">Save</button></td>
-                    </tr>
-                    </table>
-                </form>
-                </div>
-            </div>
-        </div>
+    <h3 style="text-align: center;color: #000; padding-top: 10px;">Add a Patriot</h3>
+    
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+            
+        <button class="btn btn-primary" type="submit">Save</button>
+        </form>       
     </div>
 {% endblock %}
