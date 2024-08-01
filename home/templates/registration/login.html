@@ -2,19 +2,18 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} Sign in {% endblock %}
-
+{% block title %} Sign In {% endblock %}
 
 {% block content %}
     {% include "../navbar.html" %}
+    <h3 style="text-align: center;color: #000">Sign In</h3>
     <div class="container">
         <form class="form-signin span4" id="login_form" action="{% url 'mzalendo:login' %}" method="post">
-            <h2 class="form-signin-heading">Sign in Here</h2>
             {% csrf_token %}
             {% load crispy_forms_tags %}
             {{ form|crispy }}
             
-            <button class="btn btn-primary" type="submit">Sign in</button>
+            <button class="btn btn-primary" type="submit">Sign In</button>
         </form>
     </div>
 {% endblock %}

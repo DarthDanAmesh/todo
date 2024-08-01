@@ -11,19 +11,6 @@ class CustomUserCreationForm(UserCreationForm):
             "password1",
             "password2",
         )
-        widgets = {
-            'username': forms.TextInput(attrs={
-                
-                'placeholder': 'Username'
-            }),
-            'password1': forms.PasswordInput(attrs={
-                
-                'placeholder': 'Password'
-            }),
-            'password2': forms.PasswordInput(attrs={
-                'placeholder': 'Confirm Password'
-            }),
-        }
 
 class MzalendoForm(forms.ModelForm):
     class Meta:
