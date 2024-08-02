@@ -3,14 +3,39 @@ from django.contrib.auth.models import User
 from .models import Mzalendo, Comment
 from django import forms
 
+
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
             "username",
+            "email",
             "password1",
             "password2",
         )
+
+    # regardless of CASE (lower,upper)
+    def clean_username(self):
+        username=self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('This username exists on system')
+        return username
+
+    # regardless of CASE (lower,upper)
+    def clean_email(self):
+        email=self.cleaned_data.get('email')
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError('This email exists on system')
+        return email
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.email = self.cleaned_data.get('email')
+            user.is_active = False
+            user.save()
+        return user
 
 class MzalendoForm(forms.ModelForm):
     class Meta:

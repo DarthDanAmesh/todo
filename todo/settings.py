@@ -147,3 +147,10 @@ LOGIN_REDIRECT_URL = reverse_lazy("mzalendo:mzalendo_list")
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/login"
 LOGOUT_URL = "/mzalendo"
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'redismanchester@gmail.com'
+EMAIL_HOST_PASSWORD = 'delaros1'
+EMAIL_PORT = 587
