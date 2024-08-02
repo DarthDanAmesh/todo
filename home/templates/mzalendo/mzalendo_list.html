@@ -10,8 +10,8 @@
     {% include "../navbar.html" %}
     <h3 style="text-align: center;">Our National Heroes!!</h3>
     <hr style="width: 50%; margin: 0 auto;">
-    <section id="book-list">  
-    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 0 auto; max-width: 1000px;">
+    <section id="mzalendo-list">  
+    <div class="row row-cols-1 row-cols-md-3 g-2">
         {% for mzalendo in page_obj %}
             {% include "partials/mzalendo.html" %}
         {% empty %}
@@ -20,8 +20,8 @@
 
     </div>
 
-    <div class="nav-pagination">
-        <ul class="pagination pagination-sm justify-content-center">
+    <div class="pag-navigation">
+        <ul class="pagination justify-content-center">
         
             {% if page_obj.has_previous %}
                 <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
