@@ -1,44 +1,92 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.conf import settings
 # Create your views here.
 from .models import Mzalendo
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, FormView
+from django.views import View
 from .forms import CustomUserCreationForm
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DeleteView
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 from .forms import MzalendoForm
+from django.template.loader import render_to_string
 from django.core.paginator import Paginator
-
+from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.models import User
 # in future add required mixin for logins to access the details materials
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.forms.models import modelform_factory
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
+from django.utils.encoding import force_bytes
+from django.utils.encoding import force_str
+from .tokens import account_activate_token
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
     
 
+class RegisterUser(FormView):
+    form_class = CustomUserCreationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy('mzalendo:index')
 
-def register(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully')
-            return redirect("mzalendo:login")
-    else:
-        form = CustomUserCreationForm()
-    
-    for field in form.fields.values():
-        field.help_text = ""
-    return render(
-        request, "registration/register.html", {"form": form}
-    )
+    def form_valid(self, form):
+        user = form.save()
+        self.send_activation_email(user)
+        messages.success(self.request, 'Account created successfully. Check your email for the activation link.')
+        return super().form_valid(form)
+
+    def send_activation_email(self, user):
+        current_site = get_current_site(self.request)
+        subject = 'Activate your account'
+        message = self.render_activation_email(user, current_site)
+        
+        email_sent = send_mail(
+            subject,
+            message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[user.email],
+            fail_silently=True
+        )
+        
+        if email_sent:
+            print(f"Activation email sent successfully to {user.email}")
+        else:
+            print(f"Failed to send activation email to {user.email}")
+
+    def render_activation_email(self, user, current_site):
+        return render_to_string('registration/activate_account.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activate_token.make_token(user),
+        })
+
+
+class ActivateView(View):
+
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, TypeError, ValueError, OverflowError):
+            user = None
+        if user is not None and account_activate_token.check_token(user=user, token=token):
+            user.is_active = True
+            user.save()
+            login(request=request, user=user)
+            messages.add_message(request, messages.INFO, 'You are successfully activated your account')
+            return redirect('mzalendo:index')
+        else:
+            return HttpResponse('The link is invalid sorry!')
 
 # fix the index.html to be a list view
 
