@@ -28,6 +28,9 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from .tokens import account_activate_token
 
+from django.urls import path
+#from .views import MyLoginView, RegisterView
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'

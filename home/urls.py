@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from django.contrib.auth.views import LoginView, LogoutView
 
 from .views import IndexView, RegisterUser, mzalendo_list_view, ActivateView, MzalendoEdit, mzalendo_create_view, mzalendo_detail_cpy,MzalendoDetail, quick_edit
