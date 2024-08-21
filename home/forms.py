@@ -2,8 +2,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Mzalendo, Comment
 from django import forms
+from .models import Profile
 
 
+class UpdateAccountProfile(UserCreationForm):
+    model = User
+    fields = ("username", "email")
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -49,6 +53,10 @@ class MzalendoForm(forms.ModelForm):
                 }),
         }
 
+class AccountProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('user', 'avi')
 
 class EditMzalendoForm(forms.ModelForm):
     class Meta:

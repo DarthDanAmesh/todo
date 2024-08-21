@@ -152,7 +152,7 @@ LOGOUT_URL = "/mzalendo"
 #you can replace with your local SMTP server
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-#output will be on the console
+#output will be on the console: also use conditional statements: if DEBUG: THEN DEV, ELSE: PRODUCTION
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_PORT = 25

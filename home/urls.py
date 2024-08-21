@@ -1,7 +1,7 @@
 from django.urls import include, path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import IndexView, RegisterUser, mzalendo_list_view, ActivateView, MzalendoEdit, mzalendo_create_view, mzalendo_detail_cpy,MzalendoDetail, quick_edit
+from .views import IndexView, RegisterUser, AccountProfile, mzalendo_list_view, ActivateView, MzalendoEdit, mzalendo_create_view, mzalendo_detail_cpy,MzalendoDetail, quick_edit
 from . import views
 # this is a namespace which allows mzalendo:login and equivalent to {% url 'mzalendo:login' %} to work
 app_name = 'mzalendo'
@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', views.logout_user, name='logout_user'),
     path('register/', RegisterUser.as_view(), name='register'),
+    path('profile/', AccountProfile.as_view(), name='profile'),
     path('activate/<uidb64>/<token>/', ActivateView.as_view(), name='activate'),
     #name corresponds to the url in the template tag
     path('mzalendo/', views.mzalendo_list_view, name='mzalendo_list'),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Mzalendo
+from .models import Mzalendo, Profile
 # Register your models here.
 
 class MzalendoAdmin(admin.ModelAdmin):
@@ -7,3 +7,4 @@ class MzalendoAdmin(admin.ModelAdmin):
     list_display = ('name', 'gender', 'county', 'age', 'life', 'dod', 'author', 'cover', 'date_created', 'updated_by', 'slug', 'updated_at', 'approved')
 
 admin.site.register(Mzalendo, MzalendoAdmin)
+admin.site.register(Profile)

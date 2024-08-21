@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 # Create your views here.
-from .models import Mzalendo
+from .models import Mzalendo, Profile
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, FormView
 from django.views import View
@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DeleteView
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from .forms import MzalendoForm
+from .forms import MzalendoForm, UpdateAccountProfile, AccountProfileForm
 from django.template.loader import render_to_string
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
@@ -198,3 +198,39 @@ def logout_user(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect("/")
+
+@method_decorator([login_required], name='dispatch')
+class AccountProfile(View):
+    def get(self, request):
+        user_form_update= UpdateAccountProfile(instance=request.user)
+        account_profile = AccountProfileForm(instance=request.user.profile)
+
+        context = {'user_form_update':user_form_update,
+        'account_profile':account_profile}
+
+        return render(request, 'registration/profile.html', context)
+
+    def post(self, request):
+        user_form_update = UpdateAccountProfile(
+            request.POST, instance=request.user)
+        account_profile = AccountProfileForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profile)
+        
+        if user_form_update.is_valid() and account_profile.is_valid():
+            user_form_update.save()
+            account_profile.save()
+
+            messages.success(request, 'Profile has updated.')
+            
+            return redirect('mzalendo:index')
+        else:
+            context = {'user_form_update':user_form_update, 
+            'account_profile':account_profile}
+
+            messages.error(request, 'Profile update failed.')
+
+            return render(request, 'registration/profile.html', context)
+
+    

@@ -10,6 +10,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator
 from django.core.exceptions import ValidationError
+from PIL import Image
 
 # Create your models here.
 STATUS = ((0,'Active'),(1,'Completed'),(2,'Due Date Passed'))
@@ -134,3 +135,42 @@ class Verifier(models.Model):
 
     def __str__(self):
         return f"Verifier for {self.mzalendo.last_name}"
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avi = models.ImageField(default='avatar.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Image is imported from PIL
+        img = Image.open(self.avi.path)
+        # check file size and resize of > 150 x 150 in pixels
+        if img.height > 150 or img.width > 150:
+            output_size = (150, 150)
+            img.thumbnail(output_size)
+            img.save(self.avi.path)
+
+
+#create a post signal for when a user is created a profile is created
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+    
+
+
+    
+
+

@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+    {% include "../navbar.html" %}
+    <p class="text-center">
+        {% if user.profile %}
+			<img src="{{user.profile.avi.url}}" alt="{{ user.username }}" class="avatar"  accept=".jpg,.jpeg,.png"/>
+	    {% endif %}  
+    </p>
+    <h2 class="text-center">{{ user.username | title }}</h2>
+    <p class="text-center"><a href="mailto:{{user.email}}">{{user.email}}</a></p>
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                {{ form|crispy }}
+                
+                <button class="btn btn-primary center" type="submit">Update</button>
+               
+            </form>
+        </div>
+{% endblock %}
